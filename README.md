@@ -9,29 +9,42 @@ Both notebooks assume you have successfully installed [HEASOFT](https://heasarc.
 
 Make sure you initialize HEASOFT first:
 
-<code>heainit</code>
+
+```
+heainit
+```
+
 
 Check if you have a working PyXspec:
 
-<code>python3.9 -c 'import xspec'</code>
 
+```
+python3.9 -c 'import xspec'
+```
+
+ 
 
 
 If you receive no message, you are all set!
 
 How to install nustarpipeline:
 
-<code>pip install nustarpipeline</code>
+```
+pip install nustarpipeline
+```
 
 or
-
-<code>python3.9 -m pip install nustarpipeline</code>
+```
+python3.9 -m pip install nustarpipeline
+```
 
 You can run the threads from the notebook or use process_nustar.py. 
 
 For usage and detailed options, run:
 
-<code>process_nustar.py </code>
+```
+process_nustar.py
+```
 
 
 
