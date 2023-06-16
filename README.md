@@ -20,11 +20,11 @@ Both notebooks assume you have successfully installed [HEASOFT](https://heasarc.
 
 4- Check the system requirements and follow the steps before installing the software
 
-Please check the known issues page (https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/ issues.html) for any common issues users encounter.
+Please check the known issues page (https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/issues.html) for any common issues users encounter.
 
 ## SAS Installation:
 
-1- After successfully installing HEASOFT, go to https://www.cosmos.esa.int/web/xmm-newton/ download-and-install-sas
+1- After successfully installing HEASOFT, go to https://www.cosmos.esa.int/web/xmm-newton/download-and-install-sas
 
 2- Download the package for your system.
 
@@ -42,7 +42,7 @@ HEASOFT offers the option to access the CALDB files remotely additional to downl
 
 Instructions for remote access:
 
-The setup is fairly easy and can be followed from : https://heasarc.gsfc.nasa.gov/docs/heasarc/ caldb/caldb_remote_access.html
+The setup is fairly easy and can be followed from : https://heasarc.gsfc.nasa.gov/docs/heasarc/caldb/caldb_remote_access.html
 
 One important thing to keep in mind is that you will need to make sure to have stable internet connection throughout your data reduction no matter which instrument you are working with.
 
@@ -159,5 +159,5 @@ process_nustar.py
 ```
 
 
-
+If you have any questions or comments, please do not hesitate to reach out!
 
