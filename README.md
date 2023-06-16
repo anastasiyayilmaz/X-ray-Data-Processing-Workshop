@@ -28,7 +28,9 @@ Please check the known issues page (https://heasarc.gsfc.nasa.gov/docs/software/
 
 2- Download the package for your system.
 
-3- Make sure you meet the system requirements. 4- Follow the instructions and install SAS.
+3- Make sure you meet the system requirements. 
+
+4- Follow the instructions and install SAS.
 
 ## Working with Calibration Database CALDB:
 
