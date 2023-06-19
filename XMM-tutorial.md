@@ -463,7 +463,7 @@ Independent of whether you are working with timing or imaging mode, they method 
 - First, let’s try selecting removing only the central column:
 
 ```
-evselect table=PNclean.fits withfilteredset=yes filteredset=PN_filtered.evt keepfilteroutput=yes expression="( RAWX in [35:38] || RAWX in [38:41] )"
+evselect table=PNclean.fits withfilteredset=yes filteredset=PN_excluded.evt keepfilteroutput=yes expression="( RAWX in [35:38] || RAWX in [38:41] )"
 ```
 
 - Now, extract your pattern distribution and see if the observed distribution is nearly the same as the modelled distribution. If not, try the next two columns and repeat the steps above. Normally, the first three columns should be enough for timing mode. Be aware, the more columns you remove the more flux you will lose.
