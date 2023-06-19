@@ -260,17 +260,21 @@ evselect table=EPIC_evt.fits energycolumn=PI expression='Selection_Expression' w
 
 where <code>Selection_Expression</code> is
 	
-For EPIC-MOS:
-	
-```
-#XMMEA_EM && (PATTERN<=12) && (PI in [200:10000])
-```
-For EPIC-PN:
-					
-```
-#XMMEA_EP && (PATTERN<=4) && (PI in [200:10000])
-```	
 
+For EPIC-MOS:
+
+```
+#XMMEA_EM&&(PATTERN<12)&& ((X,Y) IN circle(24918.599,24118.57,1200))
+```
+
+For EPIC-PN:
+			  
+```
+#XMMEA_EP&&(PATTERN<=4)&& ((X,Y) IN circle(24549.649,24378.459,1200))
+```
+
+Additionally, you can use  &&(PI in [200:10000])to select a certain energy range for which you want to extract your lightcurve for. In this example, it corresponds to a range between 0.2-10 keV.
+	
 - Repeat the above step for your background to create <code>EPIC_bkg_lightcurve_raw.lc</code>
 
 - Now correct your light curve for effects such as vignetting, bad pixels, PSF variation and quantum efficiency, as well as for variations affecting the stability of the detection within the exposure, like dead time and GTIs
