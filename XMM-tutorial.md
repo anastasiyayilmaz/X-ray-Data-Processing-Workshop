@@ -134,11 +134,11 @@ ls -ltr
 You will see your events file created for each observing mode for each camera. For a coherent name structur, you might want to choose to rename your files as follows:
 
 ```
-mv original_nameMOS1.evt MOS1_evt.fits
+mv original_name_EMOS1_**ImagingEvts.ds MOS1_evt.fits
 
-mv original_nameMOS2.evt MOS2_evt.fits
+mv original_name_EMOS2_**ImagingEvts.ds MOS2_evt.fits
 
-mv original_namePN.evt PN_evt.fits
+mv original_name_EPN_**ImagingEvts.ds PN_evt.fits
 ```
 
 Your data are now ready for further processing!
