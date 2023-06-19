@@ -134,11 +134,11 @@ ls -ltr
 You will see your events file created for each observing mode for each camera. For a coherent name structur, you might want to choose to rename your files as follows:
 
 ```
-mv original_name_EMOS1_**ImagingEvts.ds MOS1_evt.fits
+mv original_nameMOS1.evt MOS1_evt.fits
 
-mv original_name_EMOS2_**ImagingEvts.ds MOS2_evt.fits
+mv original_nameMOS2.evt MOS2_evt.fits
 
-mv original_name_EPN_**ImagingEvts.ds PN_evt.fits
+mv original_namePN.evt PN_evt.fits
 ```
 
 Your data are now ready for further processing!
@@ -214,8 +214,8 @@ The file <code>EPICclean.fits</code> contains the filtered EPIC event list and c
 Be aware: if you are interested in very short time periods, such as they appear in pulsars or cataclysmic variables, you have to perform a barycentric correction. This means that the arrival time of a photon is shifted as is it would have been detected at the barycentre of the solar system (the centre of mass) instead at the position of the satellite. In this way, the data are comparable. The SAS task barycen performs this correction. As barycen overwrites the TIME column entries, it is advisable first to copy the original event list and keep it as a backup.
 
 ```
-cp PNclean.fits EPICclean_nobarycen_cor.fits
-barycen table=PNclean.fits:EVENTS
+cp EPICclean.fits EPICclean_nobarycen_cor.fits
+barycen table=EPICclean.fits:EVENTS
 ```
 
 ### Extract an Image:
@@ -255,7 +255,7 @@ A ds9 window will appear:
 - Extract your lightcurve for your source region:
 	
 ```
-evselect table=EPICclean.fits energycolumn=PI expression='Selection_Expression' withrateset=yes rateset="EPIC_source_lightcurve_raw.lc" timebinsize=10 maketimecolumn=yes makeratecolumn=yes
+evselect table=EPIC_evt.fits energycolumn=PI expression='Selection_Expression' withrateset=yes rateset="EPIC_source_lightcurve_raw.lc" timebinsize=10 maketimecolumn=yes makeratecolumn=yes
 ```	
 
 where <code>Selection_Expression</code> is
@@ -263,16 +263,13 @@ where <code>Selection_Expression</code> is
 For EPIC-MOS:
 	
 ```
-#XMMEA_EM&&(PATTERN<12)&& ((X,Y) IN circle(24918.599,24118.57,1200))
+#XMMEA_EM && (PATTERN<=12) && (PI in [200:10000])
 ```
 For EPIC-PN:
-
-			  
+					
 ```
-#XMMEA_EP&&(PATTERN<=4)&& ((X,Y) IN circle(24549.649,24378.459,1200))
+#XMMEA_EP && (PATTERN<=4) && (PI in [200:10000])
 ```	
-
-Additionally, you can use <code> &&(PI in [200:10000])</code> to select a certain energy range for which you want to extract your lightcurve for. In this example, it corresponds to a range between 0.2-10 keV.
 
 - Repeat the above step for your background to create <code>EPIC_bkg_lightcurve_raw.lc</code>
 
