@@ -448,7 +448,7 @@ evselect table=PNclean.fits withfilteredset=yes filteredset=PN_filtered.evt keep
 - Now, extract the pattern distribution:
 
 ```
-epatplot set=PN_filtered.evt plotfile=“PN_filtered_pat.ps"
+epatplot set=PN_filtered.evt plotfile="PN_filtered_pat.ps"
 ```
 
 - Display your plot:
