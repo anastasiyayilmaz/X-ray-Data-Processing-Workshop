@@ -395,8 +395,7 @@ You'll notice that the spatial information is encoded in one dimension RAWX inst
 
 Depending on the brightness of your source, you will select columns instead of a circular region. 
 
-- This is done a little differently than in the imaging mode:
-																																					
+- This is done a little differently than in the imaging mode:																																	
 ```
 evselect table=PNclean.fits withspectrumset=yes spectrumset=PNsource_spectrum.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=20479 expression='(FLAG==0) && (PATTERN<=4) && (RAWX>=32) && (RAWX<=44)'
 ```
@@ -408,9 +407,32 @@ evselect table=PNclean.fits withspectrumset=yes spectrumset=PNsource_spectrum.fi
 ```
 evselect table=PNclean.fits withspectrumset=yes spectrumset=PNbackground_spectrum.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=20479 expression='(FLAG==0) && (PATTERN<=4) && (RAWX>=3) && (RAWX<=5)'
 ```
+
+  
+- Lightcurve will include the region selection as follows:
 	
-The rest of the extraction of the spectrum is done the same way. Repeat the steps above. Check the Xspec tutorial for the spectral analysis example.
+```
+evselect table=EPIC_evt.fits energycolumn=PI expression='Selection_Expression' withrateset=yes rateset="EPIC_source_lightcurve_raw.lc" timebinsize=10 maketimecolumn=yes makeratecolumn=yes
+```	
+
+where <code>Selection_Expression</code> is
 	
+
+For EPIC-MOS:
+
+```
+#XMMEA_EM&&(PATTERN<12)&& (RAWX>=3) && (RAWX<=5)
+```
+
+For EPIC-PN:
+			  
+```
+#XMMEA_EP&&(PATTERN<=4)&& (RAWX>=3) && (RAWX<=5)
+```
+	
+- Repeat the above steps you used for imaging mode to produce your background corrected lightcurve.
+
+
 ### Pile-Up and How to Deal with It?
 	
 As mentioned above, many bright X-ray sources are subject to the effects of pileup. Even when you try to compensate for it by choosing a timing mode for your observation, it’s still good to check if your observation is affected by pile-up. 
