@@ -201,12 +201,12 @@ where <code>Selection_Expression</code> is
 For EPIC-MOS:
 	
 ```
-#XMMEA_EM && gti(EPICgti.fits,TIME) && (PI>150)
+#XMMEA_EM && gti(EPIC.gti,TIME) && (PI>150)
 ```
 For EPIC-PN:
 					
 ```
-#XMMEA_EP && gti(EPICgti.fits,TIME) && (PI>150)
+#XMMEA_EP && gti(EPIC.gti,TIME) && (PI>150)
 ```	
   
 The file <code>EPICclean.fits</code> contains the filtered EPIC event list and can be now used to produce scientific products. The file <code>EPICgti.fits</code> contains the definition of Good Time Intervals.
