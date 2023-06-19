@@ -469,6 +469,7 @@ evselect table=PNclean.fits withfilteredset=yes filteredset=PN_filtered.evt keep
 - Now, extract your pattern distribution and see if the observed distribution is nearly the same as the modelled distribution. If not, try the next two columns and repeat the steps above. Normally, the first three columns should be enough for timing mode. Be aware, the more columns you remove the more flux you will lose.
 
 - Now that you made sure you no longer have the effects of pile-up on your distribution plot, you can move on with extracting your background-corrected spectrum as described above. 
+	
 
 ### Extra Material:
 	
@@ -486,4 +487,31 @@ Or
 	
 ```
 python3.9 -m pip install pyxmmsas
+```
+
+
+#### <code>powspec</code> to extract the power spectrum of your lightcurve:
+
+If you are interested in timing analysis and work with power spectra, https://wwws.rri.res.in/~bpaul/asw/html/time_exe1.html has very useful examples of different sources. 
+
+The XRONOS task <code>powspec</code> calculates the power spectrum of your lightcurve applying the Fourier Transform which takes your lightcurve from "time" domain to "frequency" domain. Once you extract your lightcurve independent of the observing mode, you can run:
+	
+```
+powspec
+```
+	
+Which will prompt an interactice command line for you to define the required parameters. 
+
+Alternatively, you can use the following examples from XRONOS for a one-line command approach:
+
+1. From a time series  of  10000  sec  with a binning of 6.25e-2 seconds, calculate the power spectrum of 8192 points (equivalent to an interval in time  of  512  seconds) and  average  every  5 intervals  in  one  frame (4 frames in total). Apply no rebinning to the results, make a plot and output the results in a file.
+
+```
+powspec cfile1="corrected_lcurve.lc" window="-" dtnb=6.25e-2 nbint=8192 nintfm=5 rebin=0 plot=yes plotdev="/xw" outfile="-"
+```
+
+2. Same as above but all the intervals are averaged in one frame.
+
+```
+powspec cfile1="corrected_lcurve.lc" window="-" dtnb=6.25e-2 nbint=8192 nintfm=INDEF rebin=0 plot=yes plotdev="/xw" outfile="-"
 ```
