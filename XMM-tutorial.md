@@ -266,9 +266,10 @@ For EPIC-MOS:
 #XMMEA_EM && (PATTERN<=12) && (PI in [200:10000])
 ```
 For EPIC-PN:
-					
+
+			  
 ```
-#XMMEA_EP && (PATTERN<=4) && (PI in [200:10000])
+#XMMEA_EP&&(PATTERN<=4)&& ((X,Y) IN circle(24549.649,24378.459,1200)) &&(PI in [200:10000])
 ```	
 
 - Repeat the above step for your background to create <code>EPIC_bkg_lightcurve_raw.lc</code>
