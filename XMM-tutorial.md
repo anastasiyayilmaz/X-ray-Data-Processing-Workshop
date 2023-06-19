@@ -273,7 +273,7 @@ For EPIC-PN:
 #XMMEA_EP&&(PATTERN<=4)&& ((X,Y) IN circle(24549.649,24378.459,1200))
 ```
 
-Additionally, you can use  &&(PI in [200:10000])to select a certain energy range for which you want to extract your lightcurve for. In this example, it corresponds to a range between 0.2-10 keV.
+Additionally, you can use  <code>&&(PI in [200:10000])</code> to select a certain energy range for which you want to extract your lightcurve for. In this example, it corresponds to a range between 0.2-10 keV.
 	
 - Repeat the above step for your background to create <code>EPIC_bkg_lightcurve_raw.lc</code>
 
