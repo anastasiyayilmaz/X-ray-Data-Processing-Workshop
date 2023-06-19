@@ -255,7 +255,7 @@ A ds9 window will appear:
 - Extract your lightcurve for your source region:
 	
 ```
-evselect table=EPIC_evt.fits energycolumn=PI expression='Selection_Expression' withrateset=yes rateset="EPIC_source_lightcurve_raw.lc" timebinsize=10 maketimecolumn=yes makeratecolumn=yes
+evselect table=EPICclean.fits energycolumn=PI expression='Selection_Expression' withrateset=yes rateset="EPIC_source_lightcurve_raw.lc" timebinsize=10 maketimecolumn=yes makeratecolumn=yes
 ```	
 
 where <code>Selection_Expression</code> is
