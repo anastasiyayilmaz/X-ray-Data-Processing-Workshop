@@ -391,7 +391,21 @@ ds9 PNimage.fits
 	<img width="500" alt="image" src="https://github.com/anastasiyayilmaz/X-ray-Data-Processing-Workshop/assets/57295156/c4f8dd68-e724-4ed4-a523-f649a7eb8468">
 </p>		
 
-You'll notice that the spatial information is encoded in one dimension RAWX instead of two dimensional image we extracted for the imaging mode!
+You'll notice that the spatial information is encoded in one dimension RAWX instead of the two-dimensional image we extracted for the imaging mode!
+
+WARNING: For the <code>BURST</code> mode, the top part of your image will be illuminated by the source in contrast to the image obtained from the normal timing mode. It will look something like this:
+
+<p align="center">
+	<img width="500" alt="image" src="https://github.com/anastasiyayilmaz/X-ray-Data-Processing-Workshop/assets/57295156/e7f7cbe2-e8e9-412f-b1a0-e50605891cc0">
+</p>	
+
+To remedy the effects of the overexposed portion of the observation, you will need to select a region from your image that excludes RAWY rows above which the illumination is dominant by adding the following line to your command line while extracting science products:
+
+```
+&& (RAWY<=140)
+```
+
+The value of RAWY which you will exclude will be different from one observation to another and will strongly depend on how bright your source is.
 
 Depending on the brightness of your source, you will select columns instead of a circular region. 
 
@@ -430,7 +444,7 @@ For EPIC-PN:
 #XMMEA_EP&&(PATTERN<=4)&& (RAWX>=3) && (RAWX<=5)
 ```
 	
-- Repeat the above steps you used for imaging mode to produce your background corrected lightcurve.
+- Repeat the above steps you used for imaging mode to produce your background-corrected lightcurve.
 
 
 ### Pile-Up and How to Deal with It?
