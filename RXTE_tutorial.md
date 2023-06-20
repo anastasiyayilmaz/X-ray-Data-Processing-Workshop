@@ -51,7 +51,7 @@ Which will prompt you to enter:
 Alternatively, you can use a single command line:
 
 ```
-pcaprepobsid indir="$obsid$" outdir=“$obsid$-result”
+pcaprepobsid indir="$obsid$" outdir="$obsid$-result"
 ```
 
 In case you want to process a set of observations, you can easily create a script for pcaprepobsid as follows:
@@ -100,7 +100,7 @@ maketime
 Or you can use a one-line command as follows:
 
 ```
-maketime infile=$obsid$-result/*.xfl outfile=$obsid$.gti expr=“$expr" value=VALUE time=TIME prefr=0.5 postfr=0.5 compact=NO clobber=YES
+maketime infile=$obsid$-result/*.xfl outfile=$obsid$.gti expr="$expr" value=VALUE time=TIME prefr=0.5 postfr=0.5 compact=NO clobber=YES
 ```
 
 Here, <code>$expr</code> contains all of the screening criteria you wish to apply. For our case this will be:
