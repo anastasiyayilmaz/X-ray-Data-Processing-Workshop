@@ -197,4 +197,98 @@ This applies an empirical correction to your spectrum. Instead of 1% systematic 
 grppha infile.fits outfile.fits 'group min 25 && systematics 0-128 0.001 & exit'
 ```
 
+## Extra material:
 
+The above-mentioned steps will create a time-averaged spectrum for your observation. This means that your products are going to be averaged throughout your entire observation (or observations if you choose to work with multiple observations). However, you might be interested in analyzing a certain part of your observation i.e. a specific burst or you want to produce a spectrum that excludes a certain time interval. You can do this by selecting certain time intervals of your interest from the lightcurve you extracted.
+
+Start by displaying your spectrum:
+
+```
+lcurve 1 filename.lc
+```
+If you need to, zoom in on the time interval by rescaling your axes:
+
+```
+r x low high
+```
+
+and 
+
+```
+r y low high
+```
+
+Note down your time intervals as follows:
+
+start_time end_time for your first phase and the second phase separately. 
+
+Note that these time values you obtain from your lightcurve are relative to the <code>TSTART</code> and you need to transfer this time to absolute time to be used later on. This task is carried out by running the tool <code>timetrans</code>. You can find the value of <code>TSTART</code> from the HEADER of your lightcurve. You can do so by using <code>fv</code> tool in HEASOFT:
+
+```
+fv filename.fits
+```
+Similar to the time-averaged spectrum, you will need to have created your GTI file which will be [AND'ed](https://heasarc.gsfc.nasa.gov/docs/xte/abc/extracting.html#array_ex1_gtiandfile). 
+
+
+Below is an example of running <code>SAEXTRACT</code>
+
+For full documentation about saextrct, type fhelp saextrct.
+
+The corresponding screen dialogue is as follows:
+
+Run:
+
+```
+saextract
+```
+
+Below are parameters and suggested values to extract your products:
+
+
+Input file name or @file-of-filenames:[] <code>@std2.list</code>
+
+Input GTI files to be OR'd with INFILE (APPLY):[APPLY]
+
+Input GTI file to be AND'd with INFILE:[-] <code>elv_gt_10.gti</code>
+
+Root name for output file:[sac] pca_32s
+
+Accumulate (ONE) or (MANY) Spectral/Light Curves:[ONE]
+
+Name of TIME column:[TIME]
+
+Name of COLUMNS to be accumulated (GOOD):[GOOD]
+
+Input the binsize in seconds, use 0.1 etc. if nec (INDEF):[INDEF] 
+
+Minimum acceptable fractional exposure (INDEF):[INDEF]
+
+Chose print option, LIGHTCURVE, SPECTRUM, or BOTH:[BOTH] <code>BOTH</code> or change it to your preference.
+
+Type of binning for LIGHTCURVE: (SUM, RATE, MEAN):[RATE]
+
+Type of binning for SPECTRUM (SUM, RATE, MEAN):[SUM]
+
+Maximum acceptable intensity for Light Curve (INDEF):[INDEF]
+
+Maximum acceptable intensity for Spectrum (INDEF):[INDEF]
+
+Column titles for SUM written as header Keywords:[-]
+
+Column titles for MEAN written as header Keywords:[-]
+
+Starting time for summation (INDEF):[INDEF]
+
+Ending time for summation (INDEF):[INDEF]
+
+Input time intervals t1-t2,t3-t4 in seconds (INDEF): <code>time intervals</code> as you obtained from <code>timetrans</code>
+
+Minimum energy bin to include in Spectra (INDEF):[INDEF]
+
+Maximum energy bin to include in Spectra (INDEF):[INDEF]
+
+Input channels to be retained 1-2,3-4 (INDEF):[INDEF]
+
+Input channels for each bin 1-5,6-256 (INDEF):[INDEF]
+
+Perform a dryrun on files without processing any data? (Yes):[no]
