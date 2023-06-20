@@ -14,6 +14,8 @@ Layers: 1 Propane veto; 3 Xenon, each split into two; 1 Xenon veto layer
 Sensitivity: 0.1 mCrab
 Background: 90 mCrab
 
+You can find more details on analyzing RXTE-PCA data [here](https://heasarc.gsfc.nasa.gov/docs/xte/abc/contents.html).
+
 ## Prepare Your Observation:
 
 Now that you have your data downloaded, you will see a structure as follows:
@@ -70,6 +72,21 @@ You can repeat it for as many observations as you like and run the file (e.g. pc
 
 Make sure you are working in a directory you have writing privileges and try to avoid working on an external drive.
 
+### Merging Observations:
+
+In case you want to work with science products that are obtained from not just one but a set of observations, you can merge these observations once you process each one. This is done first by creating a list of observations you want to merge with:
+
+```
+ls -d $propid$*-result > $propid$-all.lis
+```
+And then run <code>pcamergeobsids</code> in one line:
+
+```
+pcamergeobsids indir=@$propid$-all.lis outdir=$propid$-all-result
+```
+
+The method above assumes that you are working within one Proposal level with proposal id <code>$propid$</code>, let's say 91702. As in the case with <code>pcaprepobsid</code>, you will be running the command within the directory you have all these observation directories in.
+
 ## Create a Good Time Interval (GTI) File:
 
 In this step, before you produce higher-level science products you need to filter out bad data from your observations based on certain screening criteria. It’s advised to apply basic screening criteria on each spectrum. This includes removing data from when the target is below the earth horizon (ELV cut), and or when RXTE is not pointed at the desired target, or when PCU detectors are off. 
@@ -96,7 +113,7 @@ Where we also select data obtained only by PCU2 which was operated almost always
 
 ## Extract a Background Corrected Spectrum and Lightcurve:
 
-Now that you have everything you need ready for your science products, you can start by extracting a background corrected spectrum and lightcurve by running pcaextspect2 and pcaextlc2, respectively.
+Now that you have everything you need ready for your science products, you can start by extracting a background-corrected spectrum and lightcurve by running pcaextspect2 and pcaextlc2, respectively.
 
 ### Spectrum:
 
@@ -160,7 +177,9 @@ You can run <code>grppha</code> from your terminal or alternatively you can run 
 grppha infile.fits outfile.fits 'group min 25 && systematics 0-128 0.01 & exit'
 ```
 
-To better improve the calibration of your spectrum, you can use [<code>pcacorr</code>](https://sites.srl.caltech.edu/~javier/crabcorr/index.html).
+Where <code>infile.fits</code> is the spectrum you created above and <code>outfile.fits</code> is going to be the name for your binned spectrum.
+
+To better improve the calibration of your spectrum, you can use [<code>pcacorr</code>](https://sites.srl.caltech.edu/~javier/crabcorr/index.html). See the [paper](https://ui.adsabs.harvard.edu/abs/2014ApJ...794...73G/abstract) for more information.
 
 Download the latest version of the code [here](https://drive.google.com/file/d/1pR3weteidD_8Ag9aNR56RFxuc7OZfJVH/view?usp=sharing).
 
@@ -172,7 +191,7 @@ python3.9 pcacorr.py -b spectrum.fits
 
 WARNING: This is for epoch gains 4-5, please check other options to process spectra obtained during different epoch gains.
 
-This applies an emprical correction to your spectrum. Instead of 1% systematic uncertainty, you can now reduce it to 0.1% and bin your spectrum:
+This applies an empirical correction to your spectrum. Instead of 1% systematic uncertainty, you can now reduce it to 0.1% and bin your spectrum:
 
 ```
 grppha infile.fits outfile.fits 'group min 25 && systematics 0-128 0.001 & exit'
