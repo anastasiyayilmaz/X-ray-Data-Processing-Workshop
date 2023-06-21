@@ -22,7 +22,7 @@ The <code>nupipeline</code> script automatically runs a sequence of main NuSTAR 
 You can execute the script by:
 
 ```
-indir=/archive/10012001002/ steminputs=nu10012001002 outdir=./pipeline_out
+nupipeline indir=/archive/10012001002/ steminputs=nu10012001002 outdir=./pipeline_out
 ```
 
 By default, the task is executed for each focal plane FPMA and FPMB but one can run it for a specific one by adding <code>instrument=FPMB</code> to the above command. The script exits at Stage-2 (screening) by default but one can use <code>exitstage=1</code> to terminate at Stage-1(Calibration). For our analysis, we will run the script for both stages.
