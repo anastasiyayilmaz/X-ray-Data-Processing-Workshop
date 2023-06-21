@@ -51,6 +51,12 @@ For spectrum 2:
 ignore 2:**-low_e high_e-**
 ```
 
+Ignore the bad channels in your spectrum:
+
+```
+ignore bad
+```
+
 - Plot your data in logarithmic scale:
 
 ```
@@ -138,6 +144,12 @@ setplot com r y 1.e-2 1.e+32
 addcomp 3 gauss
 ```
 
+Alternatively, you can delete your component by
+
+```
+delcomp 3
+```
+
   Warning: this is to show addition of a simple component, reflection components such as strong Fe K 	$\alpha$ emission line and a Compton hump dominating at higher energies require a more detailed and self-consistent modelling of relativistic reflection if it originates from the accretion disk. These models include <code>relxill</code>, <code>xillver</code> and more. Check these models for information if you are interested.
 
 - Save your results:
@@ -187,3 +199,108 @@ hardcopy /YOUR/FAVORITE/PATH/filename.ps/cps
 
 Et voilà! 
 
+## The Case of GRO J1655-40
+
+Now that we've extracted the RXTE and XMM-Newton spectra of GRO J1655-40, we can start working with Xspec!
+
+Load your data first:
+
+```
+data 1:1 xmm_spec.fits
+```
+
+```
+data 2:2 rxte_spec.fits
+```
+
+Ignore <0.3 and >10. keV for XMM-Newton and <3. and >25. keV for RXTE.
+
+```
+ig 1:**-0.3 10.-**
+```
+
+```
+ig 2:**-5. 25.-**
+```
+
+Note that **-3 will remove channels below channel number 3 while **-3. will remove bins with energies below 3. keV.
+
+Display your spectrum:
+
+```
+setplot e
+cpd /xw
+pl ld
+```
+
+Define a simple model:
+
+```
+mo tbabs*(diskbb+po)
+```
+
+To account for cross-calibration between the two instruments, add a normalization constant to both spectra with a convolution(multiplicative) model <code>constant</code>. 
+
+```
+addcomp 1 constant
+```
+
+Now your total model should look like constant $\times$ tbabs $\times$ (diskbb+po) where the constant for your first spectrum will be fixed at 1 and free for the second spectrum. You can do so by:
+
+```
+newpar 1 1 -1
+newpar 7 1 0.1
+```
+
+Now you can start your fit:
+
+```
+query y
+fit
+```
+
+Display your spectrum and best-fit model with components:
+
+```
+setplot add
+pl ld delchi
+```
+
+<p align="center">
+  <img width="522" alt="image" src="https://github.com/anastasiyayilmaz/X-ray-Data-Processing-Workshop/assets/57295156/3d03e7d6-8e4d-4eca-a2d4-9deb4a543afd">
+</p>
+
+
+Notice the residuals below 1 keV arising from scatterings due to a dust halo and 6-7 keV, a narrow absorption line from the accretion disk wind. We can model these components with <code>dust</code> and <code>gauss</code>, respectively. While <code>dust</code> is a convolution model, <code>gauss</code> is ad additive model.
+
+```
+addcomp 2 dust
+```
+
+and free both parameters.
+
+```
+addcomp 5 gauss
+```
+
+with a negative normalization for the absorption feature:
+
+```
+newpar 9 -1, 0.1, -10, -10, 0, 0
+```
+
+where the range <code>-10, -10, 0, 0</code> corresponds to <code>hard min, soft min, soft max, hard max</code>. Hard defines the parameter value above which your fit will not be exploring the space any longer while soft defines a "softer" limit where the algorithm will be within the range but will go above the value if needed.
+
+Your final total model should look like constant $\times$ dust $\times$ tbabs $\times$ (diskbb+gauss+po).
+
+Now you can restart the fit and observe the changes in the residuals along with the changes in your chi-squared value with respect to the total degrees of freedom, i.e. the reduced chi-squared of your fit. Did it increase or decrease?
+
+```
+pl
+```
+
+<p align="center">
+  <img width="522" alt="image" src="https://github.com/anastasiyayilmaz/X-ray-Data-Processing-Workshop/assets/57295156/bece9df3-1684-478d-851e-498f9f40dad2">
+</p>
+
+Now compare your results to your previous best-fit model and parameter values to see if you observe any improvements to your fit by adding these components.
